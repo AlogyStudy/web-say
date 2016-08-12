@@ -1,0 +1,23 @@
+{
+  "name": "saysay",
+  "description": "",
+  "main": "app.js",
+  "authors": [
+    "Xingzhang Lin <1129507496@qq.com>"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/AlogyStudy/webSay",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "public/lib",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "^3.3.7",
+    "underscore": "^1.8.3"
+  }
+}

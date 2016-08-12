@@ -36,6 +36,6 @@ app.get('/login', router.showLogin);
 
 app.post('/dologin', router.doLogin);
 
-app.listen(3000);
+app.listen(8088);
 
-console.log('3000端口启动成功');
+console.log('8088端口启动成功');
