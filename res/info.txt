@@ -1,0 +1,39 @@
+
+
+E:\wamp\www\github\sxt\nodejs\webSay\public\_style>sass --style expanded app.scs
+s ../css/app.css
+
+注册，登陆
+	默认状态下，是默认的头像。
+
+注册模块
+	用户表单： formidable
+	用户名是否显示使用 : express-session
+		req设置session。标识，和用户名
+		
+	
+	错误：业务会写在res.send(); 之后
+	
+
+Node很少有人使用来搭建整个网站，如果有逻辑错误 app.js 跑不起来，单线程停止.
+
+登陆业务
+	获取，query
+	查询数据库
+	匹配数据库数据
+	返回状态码
+	
+	
+头部共享
+
+<% include header.ejs %>
+
+需要头部的路由，每个都需要传入ejs头部的参数。
+需要在header头部中判断显示逻辑。
+
+
+	
+	
+	
+
+

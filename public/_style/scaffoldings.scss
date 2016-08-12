@@ -1,0 +1,48 @@
+
+/**
+ * 布局
+ */
+
+@import 'variables.scss';
+
+@import 'mixins.scss';
+
+
+.navbar-inverse {
+    background: $black;
+    border: {
+        bottom: {
+            color: $borderBalck; 
+        }
+    }    
+}
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+ * 注册
+ */
+.copy {
+    @include tc;
+    margin-top: $defaultPadding * 2;    
+}
+#cuowukuang {
+   @include dn;    
+}
+.huanyin {
+    color: $while;
+    line-height: $defaultPadding / 2 * 5;
+}
+
+.form-signin-heading {
+    @include tc;
+}

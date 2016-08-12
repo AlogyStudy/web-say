@@ -1,0 +1,110 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="/favicon.ico">
+
+    <title>注册  - Say Say</title>
+
+		<link href="/css/bootstrap.min.css" rel="stylesheet">
+
+    <link href="/css/signin.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="/css/app.css" />
+    
+  </head>
+
+  <body>
+
+    <div class="container">
+
+      <form class="form-signin">
+      	
+        <h2 class="form-signin-heading">欢迎注册</h2>
+        
+        <label for="inputUserName" class="sr-only">用户名</label>
+        <input type="text" id="inputUserName" class="form-control" placeholder="请输入用户名" required autofocus>
+        
+        <br />
+        
+        <label for="inputEmail" class="sr-only">输入邮箱地址</label>
+        <input type="email" id="inputEmail" class="form-control" placeholder="输入邮箱地址" required>
+
+        <br />
+        
+        <label for="inputPassword" class="sr-only">请输入密码</label>
+        <input type="password" id="inputPassword" class="form-control" placeholder="请输入密码" required>
+        
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" checked="checked" value="remember-me">遵守注册规定
+          </label>
+        </div>
+        
+        <button class="btn btn-lg btn-primary btn-block" id="zhuce" type="button">注册</button>
+        
+      </form>
+
+			<div class="alert alert-danger" role="alert" id="cuowukuang">
+				用户名被占用，请更换用户名
+			</div>
+			
+    </div> 
+
+    <footer class="copy">
+      <p>&copy; Company 2016</p>
+    </footer>
+
+		<script src="/lib/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+		
+		<script type="text/javascript">
+			
+			$('input').focus(function () {
+				$('#cuowukuang').fadeOut();
+			});
+			
+			$('#zhuce').click(function () {
+				
+				// 提交表单
+				$.post('/doregist', {
+					
+					'username': $('#inputUserName').val(),
+					'emial': $('#inputEmail').val(),
+					'password': $('#inputPassword').val()
+					
+				}, function ( reslust ) {
+					
+					if ( reslust == '1' ) {
+						
+						// 注册成功
+						alert('注册成功，将自动跳转到首页');
+						
+						location.href = '/';
+						
+					} else if ( reslust == '-1' ) {
+						
+						// 用户名被占用
+						$('#cuowukuang').fadeIn();
+						$('#cuowukuang').html('用户名被占用，请更换用户名');
+						
+					} else if ( relsut == '-3' ) {
+						// 服务器错误
+						
+					}
+					
+				});
+				
+			});
+			
+			
+			
+		</script>
+		
+		
+
+  </body>
+</html>

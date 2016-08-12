@@ -1,0 +1,13 @@
+
+/**
+ * 混合样式 
+ */
+
+@mixin tc {
+    width: $w25 * 4;
+    text-align: center;
+}
+
+@mixin dn {
+    display: none;
+}

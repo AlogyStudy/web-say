@@ -1,0 +1,64 @@
+
+// SASS - 构建CSS
+// HTML5 + CSS3 
+// 构建工具Gulp
+// 前后台数据传输使用Vue
+
+
+不能转发的微博系统 , 类似小论坛
+
+注册，登陆，可以发送微博
+
+没有关注，收听机制。所有人的微博，都能够被看见。按时间排序。
+
+可以对一个微博进行“赞”，"评论"。
+
+SNS模型。
+
+
+
+Express + formidable + gm + ejs + mongodb + Q + session
+
+不需要实现设计数据库，MongoDB 灵活性所决定
+
+数据库中需要那些的collection.
+
+存储用户: 
+	user,存储用户信息
+	document
+	username，不能重复
+	{
+		_oid: ,
+		"username": "小明", 
+		"passwrold": ,
+		"avatar": "public/img/20160727.jpg",
+		"sign": "签名"
+	}
+	
+	
+存储帖子
+	post，用户发表的文章
+	{	
+		_oid: "",
+		"title": "标题",
+		"content": "内容",
+		"author": "小明",
+		"date"： "日期",
+		"comment": [
+			{
+				"content": "",
+				"author": "",
+				"date": "时间"
+			},
+			{},
+		],
+		"zan": ["小明", "小强"]
+	}	
+
+
+
+
+
+
+
+
