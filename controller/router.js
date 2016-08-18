@@ -58,7 +58,12 @@ exports.doRegist = function ( req, res, next ) {
 			}
 			
 			// 用户名没有被占用
-			db.insertOne('users', {'username': username, 'password': password, 'emial': emial}, function ( err, relsut ) {
+			db.insertOne('users', {
+				'username': username, 
+				'password': password, 
+				'emial': emial,
+				'avatar': 'moren.jpg'
+			}, function ( err, relsut ) {
 				
 				if ( err ) {
 					res.send('-3'); // 服务器错误
