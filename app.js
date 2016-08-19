@@ -1,12 +1,11 @@
 
-var express = require('express');
-var	session = require('express-session');
+const express = require('express');
+const	session = require('express-session');
 
-
-var app = express();
+const app = express();
 
 // 路由控制器
-var router = require('./controller/router');
+const router = require('./controller/router');
 
 //使用session
 app.use(session({
@@ -21,7 +20,8 @@ app.set('view engine', 'ejs');
 
 // 静态文件
 app.use(express.static('./public'));
-
+// 静态化头像文件夹
+app.use('/avatar',express.static('./avatar'));
 
 // 路由表
 app.get('/', router.showIndex);

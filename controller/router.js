@@ -1,17 +1,41 @@
 
-var formidable = require('formidable');
-var db = require('../models/db.js');
-var md5 = require('../models/md5.js');
+let formidable = require('formidable');
+let db = require('../models/db.js');
+let md5 = require('../models/md5.js');
 
-//var Q = require('Q');
+//let Q = require('Q');
 
 // 显示首页
 exports.showIndex = function ( req, res, next ) {
 	
-	res.render('index', {
-		"login": req.session.login == '1' ? true : false, 
-		"username": req.session.login == '1' ? req.session.username : '' 
-	});
+	if ( req.session.login == '1' ) {
+		
+		// 查询 图片
+		db.find('users', {username: req.session.username}, function ( err, reslut ) {
+			
+			let avatar = reslut[0].avatar || 'moren.jpg';
+			
+			// 渲染 首页， 传递index需要的参数
+			res.render('index', {
+				"login": req.session.login == '1' ? true : false, 
+				"username": req.session.login == '1' ? req.session.username : '',
+				"active": '首页',
+				"avatar": avatar
+			});
+			
+		});
+		
+	} else {
+
+		// 渲染 首页， 传递index需要的参数
+		res.render('index', {
+			"login": req.session.login == '1' ? true : false, 
+			"username": req.session.login == '1' ? req.session.username : '',
+			"active": '首页',
+			"avatar": 'moren.jpg'
+		});
+		
+	}
 	
 }
 
@@ -27,7 +51,7 @@ exports.showRegist = function ( req, res, next ) {
 exports.doRegist = function ( req, res, next ) {
 	
 	// 得到用于填写信息
-	var form = new formidable.IncomingForm();
+	let form = new formidable.IncomingForm();
 	
   form.parse(req, function(err, fields, files) {
   	
@@ -36,11 +60,11 @@ exports.doRegist = function ( req, res, next ) {
   	}
   	
   	// 得到表单
-//		var deferred = Q.defer();
+//		let deferred = Q.defer();
 		
-  	var username = fields.username;
-		var emial = fields.emial;
-  	var password = md5( md5(fields.password) + 'alogy' ); // 处理加密后的密码
+  	let username = fields.username;
+		let emial = fields.emial;
+  	let password = md5( md5(fields.password) + 'alogy' ); // 处理加密后的密码
 		
 		// 查询数据库
 		db.find('users', {"username": username}, function ( err, reslut ) {
@@ -59,10 +83,12 @@ exports.doRegist = function ( req, res, next ) {
 			
 			// 用户名没有被占用
 			db.insertOne('users', {
-				'username': username, 
-				'password': password, 
-				'emial': emial,
-				'avatar': 'moren.jpg'
+				
+				'username': username,  // 用户名
+				'password': password,  // 密码 
+				'emial': emial,	// 邮箱
+				'avatar': 'moren.jpg'  // 头像
+				
 			}, function ( err, relsut ) {
 				
 				if ( err ) {
@@ -97,13 +123,13 @@ exports.doLogin = function ( req, res, next ) {
 	
 //		得到用户表单	
 		// 得到用于填写信息
-	var form = new formidable.IncomingForm();
+	let form = new formidable.IncomingForm();
 	
   form.parse(req, function(err, fields, files) {
   	
-  	var username = fields.username;
-  	var password = fields.password;
-  	var jiamihouMiMa = md5( md5(fields.password) + 'alogy' );
+  	let username = fields.username;
+  	let password = fields.password;
+  	let jiamihouMiMa = md5( md5(fields.password) + 'alogy' );
 		  	
 		// 查询数据库，是否有存在当前用户名
 		// 有用户名， 再匹配密码
