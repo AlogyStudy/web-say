@@ -19,39 +19,25 @@
   </head>
 
   <body>
-
+  	
+  	<% include header.ejs %>
+  	
     <div class="container">
-
-      <form class="form-signin">
-      	
-        <h2 class="form-signin-heading">欢迎注册</h2>
-        
-        <label for="inputUserName" class="sr-only">用户名</label>
-        <input type="text" id="inputUserName" class="form-control" placeholder="请输入用户名" required autofocus>
-        
-        <br />
-        
-        <label for="inputEmail" class="sr-only">输入邮箱地址</label>
-        <input type="email" id="inputEmail" class="form-control" placeholder="输入邮箱地址" required>
-
-        <br />
-        
-        <label for="inputPassword" class="sr-only">请输入密码</label>
-        <input type="password" id="inputPassword" class="form-control" placeholder="请输入密码" required>
-        
-        <div class="checkbox">
-          <label>
-            <input type="checkbox" checked="checked" value="remember-me">遵守注册规定
-          </label>
-        </div>
-        
-        <button class="btn btn-lg btn-primary btn-block" id="zhuce" type="button">注册</button>
-        
-      </form>
-
-			<div class="alert alert-danger" role="alert" id="cuowukuang">
-				用户名被占用，请更换用户名
-			</div>
+			
+			<h1>上传头像</h1>
+			
+			<form action="/dosetavatar" method="post" enctype="multipart/form-data">
+				
+				<div class="form-group">
+					<label for="touxinag">请更改头像</label>
+					<input type="file" class="form-control" id="touxinag" name="touxiang" />
+				</div>	
+				
+				<div class="form-group">
+					<button type="submit" id="shangchuan" class="btn btn-default">上传</button>
+				</div>
+				
+			</form>
 			
     </div> 
 
@@ -61,48 +47,6 @@
 
 		<script src="/lib/jquery/dist/jquery.min.js" type="text/javascript" charset="utf-8"></script>
 		
-		<script type="text/javascript">
-			
-			$('input').focus(function () {
-				$('#cuowukuang').fadeOut();
-			});
-			
-			$('#zhuce').click(function () {
-				
-				// 提交表单
-				$.post('/doregist', {
-					
-					'username': $('#inputUserName').val(),
-					'emial': $('#inputEmail').val(),
-					'password': $('#inputPassword').val()
-					
-				}, function ( reslust ) {
-					
-					if ( reslust == '1' ) {
-						
-						// 注册成功
-						alert('注册成功，将自动跳转到首页');
-						
-						location.href = '/';
-						
-					} else if ( reslust == '-1' ) {
-						
-						// 用户名被占用
-						$('#cuowukuang').fadeIn();
-						$('#cuowukuang').html('用户名被占用，请更换用户名');
-						
-					} else if ( relsut == '-3' ) {
-						// 服务器错误
-						
-					}
-					
-				});
-				
-			});
-			
-			
-			
-		</script>
-		
+	
   </body>
 </html>

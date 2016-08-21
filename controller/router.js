@@ -1,5 +1,9 @@
 
 let formidable = require('formidable');
+let path = require('path');
+let fs = require('fs');
+
+
 let db = require('../models/db.js');
 let md5 = require('../models/md5.js');
 
@@ -118,8 +122,8 @@ exports.showLogin = function ( req, res, next ) {
 }
 
 
-// 登陆业务
 exports.doLogin = function ( req, res, next ) {
+// 登陆业务
 	
 //		得到用户表单	
 		// 得到用于填写信息
@@ -171,3 +175,90 @@ exports.doLogin = function ( req, res, next ) {
 	
 }
 
+
+
+// 上传头像
+exports.showsetAvartar = function ( req, res, next ) {
+	
+	// 验证是否在登陆状态
+//	if ( req.session.login != '1' ) {
+//		
+//		res.end('当前页面要求登陆');
+//		
+//		return ;
+//		
+//	}
+	
+	res.render('setavatar', {
+			"login": true, 
+			"username": req.session.username || 'admin',
+			"active": '修改头像',
+	});
+	
+}
+
+
+// 裁切头像
+exports.dosetavatar = function ( req, res, next ) {
+	
+	// 验证是否已经登陆
+	if ( req.session.login != '1' ) {
+		
+		res.end('当前页面要求登陆，返回 <a href="/login">登陆页面</a>');
+		
+		return ;
+		
+	}
+	
+	let form = new formidable.IncomingForm();
+	
+	// 传入的文件夹
+	form.uploadDir = path.normalize( __dirname + '/../avatar');
+	
+	form.parse(req, function ( err, fileds, files ) {
+		
+		// 修改文件名& 路径
+		let oldPath = files.touxiang.path;
+		let newPath = path.normalize( __dirname + '/../avatar') + '/' + req.session.username + '.jpg';
+		
+		
+		fs.rename(oldPath, newPath, function ( err ) {
+			
+			if ( err ) {
+				
+				res.send('失败');
+				
+				return ;
+				
+			}
+			
+			// 缓存图片到session
+			req.session.avatar = req.session.username;
+			
+			// 跳转到 切头像页面
+			res.redirect('/cutpic');
+			
+		});		
+		
+	});
+	
+}
+
+
+// 显示切头像页面
+exports.showcutpic = function ( req, res ) {
+	
+	// 验证是否已经登陆
+	if ( req.session.login != '1' ) {
+		
+		res.end('当前页面要求登陆，返回 <a href="/login">登陆页面</a>');
+		
+		return ;
+		
+	}
+
+	res.render('cutpic', {
+		avatar: req.session.avatar
+	});
+	
+}

@@ -28,13 +28,17 @@ app.get('/', router.showIndex);
 
 // 注册
 app.get('/regist', router.showRegist);
-
 app.post('/doregist', router.doRegist);
 
 // 登陆
 app.get('/login', router.showLogin);
-
 app.post('/dologin', router.doLogin);
+
+// 上传头像
+app.get('/setavatar', router.showsetAvartar); 
+app.post('/dosetavatar', router.dosetavatar); 
+app.get('/cutpic', router.showcutpic);
+
 
 app.listen(8088);
 
