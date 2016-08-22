@@ -1,8 +1,10 @@
-
+/**
+ * Created by Danny on 2015/9/25 9:31.
+ */
 //这个模块里面封装了所有对数据库的常用操作
 var MongoClient = require('mongodb').MongoClient;
 var settings = require("../settings.js");
-
+//不管数据库什么操作，都是先连接数据库，所以我们可以把连接数据库
 //封装成为内部函数
 function _connectDB(callback) {
     var url = settings.dburl;   //从settings文件中，都数据库地址
@@ -13,6 +15,29 @@ function _connectDB(callback) {
             return;
         }
         callback(err, db);
+    });
+}
+
+init();
+
+function init(){
+    //对数据库进行一个初始化
+    _connectDB(function(err, db){
+        if (err) {
+            console.log(err);
+            return;
+        }
+        db.collection('users').createIndex(
+            { "username": 1},
+            null,
+            function(err, results) {
+                if (err) {
+                    console.log(err);
+                    return;
+                }
+                console.log("索引建立成功");
+            }
+        );
     });
 }
 
@@ -96,6 +121,7 @@ exports.updateMany = function (collectionName, json1, json2, callback) {
     })
 }
 
+//得到总数量
 exports.getAllCount = function (collectionName,callback) {
     _connectDB(function (err, db) {
         db.collection(collectionName).count({}).then(function(count) {

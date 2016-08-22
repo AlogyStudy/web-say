@@ -2,7 +2,7 @@
 let formidable = require('formidable');
 let path = require('path');
 let fs = require('fs');
-
+let gm = require('gm');
 
 let db = require('../models/db.js');
 let md5 = require('../models/md5.js');
@@ -261,4 +261,37 @@ exports.showcutpic = function ( req, res ) {
 		avatar: req.session.avatar
 	});
 	
+}
+
+
+// 执行切图
+exports.docutpic = function ( req, res, next ) {
+	
+    //文件名、w、h、x、y
+    let filename = req.session.avatar + '.jpg';
+    let w = req.query.w;
+    let h = req.query.h;
+    let x = req.query.x;
+    let y = req.query.y;
+	
+    gm("./avatar/" + filename)
+			.crop(w, h, x, y)
+      .resize(100,100,"!")
+      .write("./avatar/" + filename,function(err){
+      	
+        if( err ){
+            res.send("-1");
+            return ;
+        }
+        
+        // 更改当前用户的头像
+        db.updateMany( "users", {"username": req.session.username}, { $set: {"avatar": filename} }, function ( err, reslut ) {
+        	
+		      // 成功返回  
+		      res.send("1");
+        	
+        });
+      
+    	});
+    	
 }

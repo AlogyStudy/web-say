@@ -25,21 +25,42 @@
 <script type="text/javascript" src="/js/xiaoguo.js"></script>
 
 <script type="text/javascript">
+		
+		'use strict';
+		
+		// 点击上传 头像
     $("input").click(function () {
+    	
         var w = parseInt($(".jcrop-holder>div:first").css("width"));
         var h = parseInt($(".jcrop-holder>div:first").css("height"));
         var x = parseInt($(".jcrop-holder>div:first").css("left"));
         var y = parseInt($(".jcrop-holder>div:first").css("top"));
 
-        $.get("/docut",{
+        $.get("/docutpic",{
             "w" : w,
             "h" : h,
             "x" : x,
             "y" : y
         },function(result){
-            alert(result);
+        	
+//          alert(result);
+						
+						if ( result == '1' ) {
+							
+							alert('修改头像成功');
+							
+							window.location.href =  '/';
+							
+						} else {
+							
+							alert('修改头像失败');
+							
+						}
+            
         });
+        
     });
+    
 </script>
 </html>
 

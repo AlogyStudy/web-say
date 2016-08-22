@@ -38,7 +38,7 @@ app.post('/dologin', router.doLogin);
 app.get('/setavatar', router.showsetAvartar); 
 app.post('/dosetavatar', router.dosetavatar); 
 app.get('/cutpic', router.showcutpic);
-
+app.get('/docutpic', router.docutpic);
 
 app.listen(8088);
 
