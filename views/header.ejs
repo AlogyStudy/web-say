@@ -11,12 +11,20 @@
     </div>
     <div id="navbar" class="navbar-collapse collapse">
     	
-    	 <ul class="nav navbar-nav">
+    	 <!--<ul class="nav navbar-nav">
+    	 	<li <% if ( active == '首页' ) { %> class="active" <%}%> ></li>
         <li class="active"><a href="/">全部说说<span class="sr-only">(current)</span></a></li>
-        <li><a href="/user">我的说说</a></li>
-        <li><a href="/alluser">成员列表</a></li>
+        <li <% if ( active == '首页' ) { %> class="active" <%}%> ><a href="/user">我的说说</a></li>
+        <li <% if ( active == '首页' ) { %> class="active" <%}%>><a href="/alluser">成员列表</a></li>
+      </ul>-->
+      
+	  	<ul class="nav navbar-nav nav-height">
+    	 	<li <% if ( active == '首页' ) { %> class="active" <%}%> >全部说说<span class="sr-only">(current)</span></a></li>
+        <li <% if ( active == '我的说说' ) { %> class="active" <%}%> ><a href="/user">我的说说</a></li>
+        <li <% if ( active == '成员列表' ) { %> class="active" <%}%> ><a href="/alluser">成员列表</a></li>
       </ul>
     	
+
     	<%
     		if ( !login ) {
     	%>

@@ -12,36 +12,46 @@ let md5 = require('../models/md5.js');
 // 显示首页
 exports.showIndex = function ( req, res, next ) {
 	
+	let username, login;
+	
 	if ( req.session.login == '1' ) {
 		
-		// 查询 图片
-		db.find('users', {username: req.session.username}, function ( err, reslut ) {
-			
-			let avatar = reslut[0].avatar || 'moren.jpg';
-			
-			// 渲染 首页， 传递index需要的参数
-			res.render('index', {
-				"login": req.session.login == '1' ? true : false, 
-				"username": req.session.login == '1' ? req.session.username : '',
-				"active": '首页',
-				"avatar": avatar
-			});
-			
-		});
+		username = req.session.username;
+		login = true;
 		
-	} else {
-
-		// 渲染 首页， 传递index需要的参数
-		res.render('index', {
-			"login": req.session.login == '1' ? true : false, 
-			"username": req.session.login == '1' ? req.session.username : '',
-			"active": '首页',
-			"avatar": 'moren.jpg'
-		});
+	}	else {
+		
+		username = '';
+		login = false;
 		
 	}
 	
+	
+	// 查询 图片
+	db.find('users', {'username': username}, function ( err, reslut ) {
+		
+		let avatar;
+		
+		if ( reslut.length === 0 ) {
+			avatar = 'moren.jpg';
+		} else {
+			avatar = reslut[0].avatar;
+		}
+		
+		
+		// 渲染 首页， 传递index需要的参数
+		res.render('index', {
+			"login": login,
+			"username": username,
+			"active": '首页',
+			"avatar": avatar 
+		});
+		
+	});
+		
 }
+
+
 
 // 注册页面
 exports.showRegist = function ( req, res, next ) {
@@ -267,6 +277,15 @@ exports.showcutpic = function ( req, res ) {
 // 执行切图
 exports.docutpic = function ( req, res, next ) {
 	
+		// 验证是否已经登陆
+		if ( req.session.login != '1' ) {
+			
+			res.end('当前页面要求登陆，返回 <a href="/login">登陆页面</a>');
+			
+			return ;
+			
+		}
+
     //文件名、w、h、x、y
     let filename = req.session.avatar + '.jpg';
     let w = req.query.w;

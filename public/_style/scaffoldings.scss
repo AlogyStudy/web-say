@@ -1,4 +1,4 @@
-
+@charset "UTF-8";
 /**
  * 布局
  */
@@ -7,7 +7,9 @@
 
 @import 'mixins.scss';
 
-
+.nav-height {
+    line-height: $defaultPadding / 2 * 5;       
+}
 .navbar-inverse {
     background: $black;
     border: {

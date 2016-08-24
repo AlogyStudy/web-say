@@ -24,11 +24,11 @@ app.use(express.static('./public'));
 app.use('/avatar',express.static('./avatar'));
 
 // 路由表
-app.get('/', router.showIndex);
+app.get('/', router.showIndex); // 首页
 
 // 注册
-app.get('/regist', router.showRegist);
-app.post('/doregist', router.doRegist);
+app.get('/regist', router.showRegist); // 显示注册页面
+app.post('/doregist', router.doRegist); // 执行注册
 
 // 登陆
 app.get('/login', router.showLogin);
@@ -39,6 +39,7 @@ app.get('/setavatar', router.showsetAvartar);
 app.post('/dosetavatar', router.dosetavatar); 
 app.get('/cutpic', router.showcutpic);
 app.get('/docutpic', router.docutpic);
+
 
 app.listen(8088);
 

@@ -1,23 +1,28 @@
 @charset "UTF-8";
+
 /**
- * 宸ュ叿
+ * 工具
  */
 /**
- * 甯冨眬
+ * 布局
  */
 /**
- * 鍏ㄥ眬鍙橀噺
+ * 全局变量
  */
 /**
- * 娣峰悎鏍峰紡 
+ * 混合样式 
  */
+.nav-height {
+  line-height: 50px;
+}
+
 .navbar-inverse {
   background: #111;
   border-bottom-color: #070707;
 }
 
 /*
- * 娉ㄥ唽
+ * 注册
  */
 .copy {
   width: 100%;
@@ -40,7 +45,7 @@
 }
 
 /*
- * 涓婚〉
+ * 主页
  */
 body {
   padding-top: 50px;
