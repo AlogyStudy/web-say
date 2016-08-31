@@ -20,24 +20,33 @@ function _connectDB(callback) {
 
 init();
 
-function init(){
+// 索引
+function init () {
+	
     //对数据库进行一个初始化
     _connectDB(function(err, db){
+    	
         if (err) {
             console.log(err);
-            return;
+            return ;
         }
+        
+        // 建立索引
         db.collection('users').createIndex(
-            { "username": 1},
-            null,
-            function(err, results) {
-                if (err) {
-                    console.log(err);
-                    return;
-                }
-                console.log("索引建立成功");
-            }
+          { 'username': 1 },
+          null,
+          function(err, results) {
+          	
+              if (err) {
+                  console.log(err);
+                  return;
+              }
+              
+              console.log('索引建立成功');
+              
+          }
         );
+        
     });
 }
 
