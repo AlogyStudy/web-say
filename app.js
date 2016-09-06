@@ -40,6 +40,9 @@ app.post('/dosetavatar', router.dosetavatar);
 app.get('/cutpic', router.showcutpic);
 app.get('/docutpic', router.docutpic);
 
+// 发表说说
+app.post('/post', router.doPost);
+
 
 app.listen(8088);
 

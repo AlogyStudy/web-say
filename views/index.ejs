@@ -69,11 +69,17 @@
 			<%} else {%>
 			<!-- 登陆之后，显示模块 -->
       <div class="container">
-        <h1>
-        	<a href="/setavatar"><img src="/avatar/<%= avatar %>" width="200" alt="" /></a>	
-        	Hello, world!</h1>
-        <p>This is a template for a simple marketing or informational website. It includes a large callout called a jumbotron and three supporting pieces of content. Use it as a starting point to create something more unique.</p>
-        <p><a class="btn btn-primary btn-lg" href="#" role="button">Learn more &raquo;</a></p>
+      	
+      	<div class="row">
+      		<div class="col-lg-1">
+	        	<a href="/setavatar"><img src="/avatar/<%= avatar %>" width="100" alt="" /></a>	
+      		</div>
+      		<div class="col-lg-6 col-lg-offset-1">
+      			<p><%=username %></p>
+      			<textarea name="content" id="content" rows="5" cols="80"></textarea>
+      			<button type="button" id="fabiao" class="btn btn-success">发表说说</button>
+      		</div>
+      	</div>
       </div>
 			<% } %>	
     </div>
@@ -127,8 +133,6 @@
 					if ( reslust == '1' ) {
 						
 						// 登陆成功
-						alert('登陆成功，将自动跳转到首页');
-						
 						location.href = '/';
 						
 					} else if ( reslust == '-1' ) {
@@ -147,6 +151,29 @@
 					} else if ( reslust == '-5' ) {
 						
 						// 服务器错误
+						
+					}
+					
+				});
+				
+			});
+			
+			
+			// 点击发布业务
+			$('#fabiao').click(function () {
+				
+				$.post('/post', {
+					'content': $('#content').val()
+				}, function ( result ) {
+					
+					if ( result == '1' ) {
+						
+						// 发表成功
+						alert('发布成功');
+						
+					} else {
+						
+						alert('发布失败');
 						
 					}
 					

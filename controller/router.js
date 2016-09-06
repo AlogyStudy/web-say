@@ -314,4 +314,54 @@ exports.docutpic = function ( req, res, next ) {
     	});
     	
 }
+
+
+
+// 发表说说
+exports.doPost = function ( req, res, next ) {
+
+	// 验证是否已经登陆
+	if ( req.session.login != '1' ) {
+		
+		res.end('当前页面要求登陆，返回 <a href="/login">登陆页面</a>');
+		
+		return ;
+		
+	}
+
+	// 得到用于填写信息
+	let form = new formidable.IncomingForm();
 	
+  form.parse(req, function(err, fields, files) {
+  	
+  	if ( err ) {
+  		res.json({'err': '-2', 'info': '信息填写错误'});
+  	}
+  	
+  	// 用户名
+  	let username = req.session.username;
+  	
+  	// 得到表单
+  	let content = fields.content;
+  	
+		// 用户名没有被占用
+		db.insertOne('posts', {
+			
+			'username': username,  // 用户名
+			'datetime': new Date(),  // 时间 
+			'content':　content	
+				
+		}, function ( err, relsut ) {
+			
+			if ( err ) {
+				res.send('-3'); // 服务器错误
+				return ;
+			}
+			
+			res.send('1'); // 插入成功   
+			
+		});
+  	
+  });
+	
+}
