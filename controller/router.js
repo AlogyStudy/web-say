@@ -44,7 +44,11 @@ exports.showIndex = function ( req, res, next ) {
 			"login": login,
 			"username": username,
 			"active": '首页',
-			"avatar": avatar 
+			"avatar": avatar,
+			"shuoshuo": [
+				{"username": "zf", "content": "哈哈"},
+				{"username": "asdf", "content": "哈哈"}
+			]
 		});
 		
 	});
